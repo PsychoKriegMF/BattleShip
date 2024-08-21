@@ -1,3 +1,6 @@
+using System.Diagnostics.Eventing.Reader;
+using System.Linq.Expressions;
+
 namespace BattleShip
 {
     public partial class Form1 : Form
@@ -6,15 +9,21 @@ namespace BattleShip
         {
             InitializeComponent();
             model = new Model();
-            model.PlayerShips[0, 0] = CoordStatus.Ship;
-            model.PlayerShips[5, 2] = CoordStatus.Ship;
-            model.PlayerShips[5, 3] = CoordStatus.Ship;
-            model.PlayerShips[5, 4] = CoordStatus.Ship;
-            model.PlayerShips[5, 5] = CoordStatus.Ship;
-            model.PlayerShips[7, 1] = CoordStatus.Ship;
-            model.PlayerShips[8, 1] = CoordStatus.Ship;
+            //model.PlayerShips[0, 0] = CoordStatus.Ship;
+            //model.PlayerShips[5, 2] = CoordStatus.Ship;
+            //model.PlayerShips[5, 3] = CoordStatus.Ship;
+            //model.PlayerShips[5, 4] = CoordStatus.Ship;
+            //model.PlayerShips[5, 5] = CoordStatus.Ship;
+            //model.PlayerShips[7, 1] = CoordStatus.Ship;
+            //model.PlayerShips[8, 1] = CoordStatus.Ship;
+            for (int i = 0; i < 10; i++)
+            {
+                dataGridView1.Rows.Add(row);
+            }
         }
         Model model;
+
+        string[] row = { "", "", "", "", "", "", "", "", "", "" };
 
         //private void button1_Click(object sender, EventArgs e)
         //{
@@ -95,21 +104,34 @@ namespace BattleShip
         private void button204_Click(object sender, EventArgs e) // Перерисовать
         {
             //var b = this.Controls.Find("b", true);
+            //for (int x = 0; x < 10; x++)
+            //{
+            //    for (int y = 0; y < 10; y++)
+            //    {
+
+            //        string name = "b" + x.ToString() + y.ToString();
+            //        var b = this.Controls.Find(name, true);
+            //        if (b.Count() > 0)
+            //        {
+            //            var btn = b[0];
+            //            switch (model.PlayerShips[x, y])
+            //            {
+            //                case CoordStatus.Ship: btn.Text = "x"; break;
+            //                case CoordStatus.None: btn.Text = ""; break;
+            //            }
+            //        }
+            //    }
+            //}
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
                 {
-
-                    string name = "b" + x.ToString() + y.ToString();
-                    var b = this.Controls.Find(name, true);
-                    if (b.Count() > 0)
+                    switch (model.PlayerShips[x, y])
                     {
-                        var btn = b[0];
-                        switch (model.PlayerShips[x, y])
-                        {
-                            case CoordStatus.Ship: btn.Text = "x"; break;
-                            case CoordStatus.None: btn.Text = ""; break;
-                        }
+                        case CoordStatus.Ship:
+                            dataGridView1[x, y].Value = "X"; break;
+                        case CoordStatus.None:
+                            dataGridView1[x, y].Value = ""; break;
                     }
                 }
             }
@@ -117,11 +139,27 @@ namespace BattleShip
 
         private void button203_Click(object sender, EventArgs e)  // Поставить
         {
+            if (dataGridView1.SelectedCells.Count > 1)
+            {
+                for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+                {
+                    int x = dataGridView1.SelectedCells[i].ColumnIndex;
+                    int y = dataGridView1.SelectedCells[i].RowIndex;
+                    CoordStatus coordStatus;
+                    if (!checkBox2.Checked) coordStatus = CoordStatus.Ship;                    
+                    else coordStatus = CoordStatus.None;
+                    model.PlayerShips[x, y] = coordStatus;
+                }
+                    dataGridView1.ClearSelection();
+            }
+            else
+            {
+
+            }
             Direction direction;
             ShipType shipType = ShipType.x1;
-            if (checkBox1.Checked) direction = Direction.Vertical;
-            else direction = Direction.Horizontal;
-            if(checkBox2.Checked)
+            if (checkBox1.Checked) direction = Direction.Vertical; else direction = Direction.Horizontal;
+            if (checkBox2.Checked)
             {
                 model.AddDellShip(textBox1.Text, shipType, direction, true);
                 button204_Click(sender, e);
@@ -132,8 +170,37 @@ namespace BattleShip
             if (radioButton3.Checked) shipType = ShipType.x3;
             if (radioButton4.Checked) shipType = ShipType.x4;
 
-            model.AddDellShip(textBox1.Text, shipType, direction, checkBox1.Checked);
+            model.AddDellShip(textBox1.Text, shipType, direction, checkBox2.Checked);
             button204_Click(sender, e);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int y = dataGridView1.SelectedCells[0].RowIndex;
+            int x = dataGridView1.SelectedCells[0].ColumnIndex;
+            textBox1.Text = x.ToString() + y.ToString();
+        }
+
+        private void checkBox2_Click(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked) { button203.Text = "Удалить"; }
+            else { button203.Text = "Поставить"; }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            int cnt = dataGridView1.SelectedCells.Count;
+            textBox1.Text = cnt.ToString();
+            if (cnt > 4)
+            {
+                MessageBox.Show("Превышено количество клеток!");
+                int x = dataGridView1.SelectedCells[cnt - 1].ColumnIndex;
+                int y = dataGridView1.SelectedCells[cnt - 1].RowIndex;
+                dataGridView1.Rows[y].Cells[x].Selected = false;
+                dataGridView1.ClearSelection();
+            }
+            
+            
         }
     }
 }

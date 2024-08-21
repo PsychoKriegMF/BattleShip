@@ -28,6 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             button1 = new Button();
             textBox1 = new TextBox();
             button2 = new Button();
@@ -241,8 +251,20 @@
             radioButton4 = new RadioButton();
             button203 = new Button();
             button204 = new Button();
+            dataGridView1 = new DataGridView();
+            А = new DataGridViewTextBoxColumn();
+            Б = new DataGridViewTextBoxColumn();
+            В = new DataGridViewTextBoxColumn();
+            Г = new DataGridViewTextBoxColumn();
+            Д = new DataGridViewTextBoxColumn();
+            Е = new DataGridViewTextBoxColumn();
+            Ж = new DataGridViewTextBoxColumn();
+            З = new DataGridViewTextBoxColumn();
+            И = new DataGridViewTextBoxColumn();
+            К = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -374,9 +396,9 @@
             panel1.Controls.Add(a80);
             panel1.Controls.Add(a90);
             panel1.Controls.Add(a00);
-            panel1.Location = new Point(326, 39);
+            panel1.Location = new Point(45, 337);
             panel1.Name = "panel1";
-            panel1.Size = new Size(293, 292);
+            panel1.Size = new Size(99, 84);
             panel1.TabIndex = 3;
             // 
             // a19
@@ -2305,6 +2327,7 @@
             checkBox2.TabIndex = 6;
             checkBox2.Text = "Удалить";
             checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.Click += checkBox2_Click;
             // 
             // radioButton1
             // 
@@ -2370,11 +2393,113 @@
             button204.UseVisualStyleBackColor = true;
             button204.Click += button204_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { А, Б, В, Г, Д, Е, Ж, З, И, К });
+            dataGridView1.Location = new Point(310, 39);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(296, 303);
+            dataGridView1.TabIndex = 13;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+            // 
+            // А
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            А.DefaultCellStyle = dataGridViewCellStyle1;
+            А.HeaderText = "А";
+            А.Name = "А";
+            А.Resizable = DataGridViewTriState.False;
+            А.Width = 25;
+            // 
+            // Б
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Б.DefaultCellStyle = dataGridViewCellStyle2;
+            Б.HeaderText = "Б";
+            Б.Name = "Б";
+            Б.Resizable = DataGridViewTriState.False;
+            Б.Width = 25;
+            // 
+            // В
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            В.DefaultCellStyle = dataGridViewCellStyle3;
+            В.HeaderText = "В";
+            В.Name = "В";
+            В.Resizable = DataGridViewTriState.False;
+            В.Width = 25;
+            // 
+            // Г
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Г.DefaultCellStyle = dataGridViewCellStyle4;
+            Г.HeaderText = "Г";
+            Г.Name = "Г";
+            Г.Resizable = DataGridViewTriState.False;
+            Г.Width = 25;
+            // 
+            // Д
+            // 
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Д.DefaultCellStyle = dataGridViewCellStyle5;
+            Д.HeaderText = "Д";
+            Д.Name = "Д";
+            Д.Resizable = DataGridViewTriState.False;
+            Д.Width = 25;
+            // 
+            // Е
+            // 
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Е.DefaultCellStyle = dataGridViewCellStyle6;
+            Е.HeaderText = "Е";
+            Е.Name = "Е";
+            Е.Resizable = DataGridViewTriState.False;
+            Е.Width = 25;
+            // 
+            // Ж
+            // 
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Ж.DefaultCellStyle = dataGridViewCellStyle7;
+            Ж.HeaderText = "Ж";
+            Ж.Name = "Ж";
+            Ж.Resizable = DataGridViewTriState.False;
+            Ж.Width = 25;
+            // 
+            // З
+            // 
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            З.DefaultCellStyle = dataGridViewCellStyle8;
+            З.HeaderText = "З";
+            З.Name = "З";
+            З.Resizable = DataGridViewTriState.False;
+            З.Width = 25;
+            // 
+            // И
+            // 
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            И.DefaultCellStyle = dataGridViewCellStyle9;
+            И.HeaderText = "И";
+            И.Name = "И";
+            И.Resizable = DataGridViewTriState.False;
+            И.Width = 25;
+            // 
+            // К
+            // 
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            К.DefaultCellStyle = dataGridViewCellStyle10;
+            К.HeaderText = "К";
+            К.Name = "К";
+            К.Resizable = DataGridViewTriState.False;
+            К.Width = 25;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView1);
             Controls.Add(button204);
             Controls.Add(button203);
             Controls.Add(radioButton4);
@@ -2392,6 +2517,7 @@
             Text = "Form1";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2611,5 +2737,16 @@
         private Button a80;
         private Button a90;
         private Button a00;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn А;
+        private DataGridViewTextBoxColumn Б;
+        private DataGridViewTextBoxColumn В;
+        private DataGridViewTextBoxColumn Г;
+        private DataGridViewTextBoxColumn Д;
+        private DataGridViewTextBoxColumn Е;
+        private DataGridViewTextBoxColumn Ж;
+        private DataGridViewTextBoxColumn З;
+        private DataGridViewTextBoxColumn И;
+        private DataGridViewTextBoxColumn К;
     }
 }

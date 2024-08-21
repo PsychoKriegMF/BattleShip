@@ -99,126 +99,126 @@ namespace BattleShip
         }
 
         //Генерация выстрела
-        //public string ShotGen()
-        //{            
-        //    int x, y; // координаты выстрела в цифровом виде
-        //    Random rand = new Random();
-        //    if (LastShot == ShotStatus.Kill) WoundedStatus = false;
-        //    if ((LastShot == ShotStatus.Kill || LastShot == ShotStatus.Miss) && !WoundedStatus)
-        //    {
-        //        x = rand.Next(0, 9);
-        //        y = rand.Next(0, 9);
-        //    }
-        //    else
-        //    {
-        //        x = int.Parse(LastShotCoord.Substring(0, 1));
-        //        y = int.Parse(LastShotCoord.Substring(1));
-        //        if (LastShot == ShotStatus.Wounded || FirstGot)
-        //        {
-        //            FirstGot = true;
-        //            if (x != 9 && EnemyShips[x + 1, y] == CoordStatus.Got)
-        //            { x = x - 1; FirstGot = false; }
-        //            if (y != 9 && EnemyShips[x, y + 1] == CoordStatus.Got)
-        //            { y = y - 1; FirstGot = false; }
-        //            if (x != 0 && EnemyShips[x - 1, y] == CoordStatus.Got)
-        //            { x = x + 1; FirstGot = false; }
-        //            if (y != 0 && EnemyShips[x, y - 1] == CoordStatus.Got)
-        //            { y = y + 1; FirstGot = false; }
-        //            if (FirstGot)
-        //            {
-        //                int q = rand.Next(1, 4);
-        //                switch (q)
-        //                {
-        //                    case 1: x++; break;
-        //                    case 2: x--; break;
-        //                    case 3: y++; break;
-        //                    case 4: y--; break;
-        //                }
-        //            }
-
-        //        }
-        //        if(LastShot == ShotStatus.Miss && WoundedStatus)
-        //        {
-        //            if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x = x + 2;
-        //            if (x < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y = y + 2;
-        //            if (x < 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x = x - 2;
-        //            if (x < 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y = y - 2;
-        //            if (x < 8 && EnemyShips[x + 2, y] == CoordStatus.Got) x = x + 3;
-        //            if (x < 8 && EnemyShips[x, y + 2] == CoordStatus.Got) y = y + 3;
-        //            if (x < 1 && EnemyShips[x - 2, y] == CoordStatus.Got) x = x - 3;
-        //            if (x < 1 && EnemyShips[x, y - 2] == CoordStatus.Got) y = y - 3;
-        //            if (x < 7 && EnemyShips[x + 3, y] == CoordStatus.Got) x = x + 4;
-        //            if (x < 7 && EnemyShips[x, y + 3] == CoordStatus.Got) y = y + 4;
-        //            if (x < 2 && EnemyShips[x - 3, y] == CoordStatus.Got) x = x - 4;
-        //            if (x < 2 && EnemyShips[x, y - 3] == CoordStatus.Got) y = y - 4;
-        //        }
-        //    }            
-        //    string result = x.ToString() + y.ToString();
-        //    return result;
-        //}
         public string ShotGen()
         {
-            int x, y;
+            int x, y; // координаты выстрела в цифровом виде
             Random rand = new Random();
-
-            try
+            if (LastShot == ShotStatus.Kill) WoundedStatus = false;
+            if ((LastShot == ShotStatus.Kill || LastShot == ShotStatus.Miss) && !WoundedStatus)
             {
-                if (LastShot == ShotStatus.Kill)
-                    WoundedStatus = false;
-
-                if ((LastShot == ShotStatus.Kill || LastShot == ShotStatus.Miss) && !WoundedStatus)
+                x = rand.Next(0, 9);
+                y = rand.Next(0, 9);
+            }
+            else
+            {
+                x = int.Parse(LastShotCoord.Substring(0, 1));
+                y = int.Parse(LastShotCoord.Substring(1));
+                if (LastShot == ShotStatus.Wounded || FirstGot)
                 {
-                    x = rand.Next(0, 9);
-                    y = rand.Next(0, 9);
-                }
-                else
-                {
-                    x = int.Parse(LastShotCoord.Substring(0, 1));
-                    y = int.Parse(LastShotCoord.Substring(1));
-
-                    if (LastShot == ShotStatus.Wounded || FirstGot)
+                    FirstGot = true;
+                    if (x != 9 && EnemyShips[x + 1, y] == CoordStatus.Got)
+                    { x = x - 1; FirstGot = false; }
+                    if (y != 9 && EnemyShips[x, y + 1] == CoordStatus.Got)
+                    { y = y - 1; FirstGot = false; }
+                    if (x != 0 && EnemyShips[x - 1, y] == CoordStatus.Got)
+                    { x = x + 1; FirstGot = false; }
+                    if (y != 0 && EnemyShips[x, y - 1] == CoordStatus.Got)
+                    { y = y + 1; FirstGot = false; }
+                    if (FirstGot)
                     {
-                        FirstGot = true;
-
-                        if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x--;
-                        else if (y < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y--;
-                        else if (x > 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x++;
-                        else if (y > 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y++;
-
-                        if (FirstGot)
+                        int q = rand.Next(1, 4);
+                        switch (q)
                         {
-                            int q = rand.Next(1, 5);
-                            switch (q)
-                            {
-                                case 1: if (x < 9) x++; break;
-                                case 2: if (x > 0) x--; break;
-                                case 3: if (y < 9) y++; break;
-                                case 4: if (y > 0) y--; break;
-                            }
+                            case 1: x++; break;
+                            case 2: x--; break;
+                            case 3: y++; break;
+                            case 4: y--; break;
                         }
                     }
-                    else if (LastShot == ShotStatus.Miss && WoundedStatus)
-                    {
-                        if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x += 2;
-                        else if (y < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y += 2;
-                        else if (x > 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x -= 2;
-                        else if (y > 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y -= 2;
-                    }
+
                 }
-
-                x = Math.Clamp(x, 0, 9);
-                y = Math.Clamp(y, 0, 9);
-
-                string result = x.ToString("D1") + y.ToString("D1");
-                return result;
+                if (LastShot == ShotStatus.Miss && WoundedStatus)
+                {
+                    if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x = x + 2;
+                    if (x < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y = y + 2;
+                    if (x < 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x = x - 2;
+                    if (x < 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y = y - 2;
+                    if (x < 8 && EnemyShips[x + 2, y] == CoordStatus.Got) x = x + 3;
+                    if (x < 8 && EnemyShips[x, y + 2] == CoordStatus.Got) y = y + 3;
+                    if (x < 1 && EnemyShips[x - 2, y] == CoordStatus.Got) x = x - 3;
+                    if (x < 1 && EnemyShips[x, y - 2] == CoordStatus.Got) y = y - 3;
+                    if (x < 7 && EnemyShips[x + 3, y] == CoordStatus.Got) x = x + 4;
+                    if (x < 7 && EnemyShips[x, y + 3] == CoordStatus.Got) y = y + 4;
+                    if (x < 2 && EnemyShips[x - 3, y] == CoordStatus.Got) x = x - 4;
+                    if (x < 2 && EnemyShips[x, y - 3] == CoordStatus.Got) y = y - 4;
+                }
             }
-            catch (Exception ex)
-            {
-                // Логирование или вывод сообщения об ошибке
-                Console.WriteLine("Error in ShotGen: " + ex.Message);
-                return "Error";
-            }
+            string result = x.ToString() + y.ToString();
+            return result;
         }
+        //public string ShotGen()
+        //{
+        //    int x, y;
+        //    Random rand = new Random();
+
+        //    try
+        //    {
+        //        if (LastShot == ShotStatus.Kill)
+        //            WoundedStatus = false;
+
+        //        if ((LastShot == ShotStatus.Kill || LastShot == ShotStatus.Miss) && !WoundedStatus)
+        //        {
+        //            x = rand.Next(0, 9);
+        //            y = rand.Next(0, 9);
+        //        }
+        //        else
+        //        {
+        //            x = int.Parse(LastShotCoord.Substring(0, 1));
+        //            y = int.Parse(LastShotCoord.Substring(1));
+
+        //            if (LastShot == ShotStatus.Wounded || FirstGot)
+        //            {
+        //                FirstGot = true;
+
+        //                if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x--;
+        //                else if (y < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y--;
+        //                else if (x > 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x++;
+        //                else if (y > 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y++;
+
+        //                if (FirstGot)
+        //                {
+        //                    int q = rand.Next(1, 5);
+        //                    switch (q)
+        //                    {
+        //                        case 1: if (x < 9) x++; break;
+        //                        case 2: if (x > 0) x--; break;
+        //                        case 3: if (y < 9) y++; break;
+        //                        case 4: if (y > 0) y--; break;
+        //                    }
+        //                }
+        //            }
+        //            else if (LastShot == ShotStatus.Miss && WoundedStatus)
+        //            {
+        //                if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x += 2;
+        //                else if (y < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y += 2;
+        //                else if (x > 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x -= 2;
+        //                else if (y > 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y -= 2;
+        //            }
+        //        }
+
+        //        x = Math.Clamp(x, 0, 9);
+        //        y = Math.Clamp(y, 0, 9);
+
+        //        string result = x.ToString("D1") + y.ToString("D1");
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Логирование или вывод сообщения об ошибке
+        //        Console.WriteLine("Error in ShotGen: " + ex.Message);
+        //        return "Error";
+        //    }
+        //}
         public bool CheckCoord(string xy, ShipType type, Direction direction = Direction.Vertical)
         {
             bool result = true;
@@ -226,23 +226,20 @@ namespace BattleShip
         }
         //добавляет или удаляет корабль
         //ху - координаты корабля, type - тип корабля, direction - направление корабля, deleting - удаляет или добавляет
-        //В случае успешной операции возвращает true
+        //В случае успешной операции возвращает true       
         public bool AddDellShip(string xy, ShipType type, Direction direction = Direction.Vertical, bool deleting = false)
         {
             bool result = true;
             if (deleting || CheckCoord(xy, type, direction))
             {
                 int x = int.Parse(xy.Substring(0, 1));
-                int y = int.Parse(xy.Substring(1));
+                int y = int.Parse(xy.Substring(1, 1));
                 CoordStatus status = new CoordStatus();
-                if(deleting)
+                if (deleting)
                 {
                     status = CoordStatus.None;
-                }
-                else
-                {
-                    status = CoordStatus.Ship;
-                }
+                }             
+                else status = CoordStatus.Ship;                
                 PlayerShips[x, y] = CoordStatus.Ship;
                 if (direction == Direction.Vertical)
                 {
@@ -284,6 +281,44 @@ namespace BattleShip
             else result = false;
             return result;
         }
+        //public bool AddDellShip(string xy, ShipType type, Direction direction = Direction.Vertical, bool deleting = false)
+        //{
+        //    bool result = true;
+        //    int x = int.Parse(xy.Substring(0, 1));
+        //    int y = int.Parse(xy.Substring(1, 1));
+        //    CoordStatus status = deleting ? CoordStatus.None : CoordStatus.Ship;
+
+        //    // Проверка границ
+        //    if (direction == Direction.Vertical)
+        //    {
+        //        if (y + (int)type - 1 >= PlayerShips.GetLength(1)) return false; // Проверка на выход за границы
+        //        for (int i = 0; i < (int)type; i++)
+        //        {
+        //            if (PlayerShips[x, y + i] == (deleting ? CoordStatus.Ship : CoordStatus.None))
+        //                return false; // Проверка на занятость (для установки)
+        //        }
+        //        for (int i = 0; i < (int)type; i++)
+        //        {
+        //            PlayerShips[x, y + i] = status; // Обновление статуса
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (x + (int)type - 1 >= PlayerShips.GetLength(0)) return false; // Проверка на выход за границы
+        //        for (int i = 0; i < (int)type; i++)
+        //        {
+        //            if (PlayerShips[x + i, y] == (deleting ? CoordStatus.Ship : CoordStatus.None))
+        //                return false; // Проверка на занятость (для установки)
+        //        }
+        //        for (int i = 0; i < (int)type; i++)
+        //        {
+        //            PlayerShips[x + i, y] = status; // Обновление статуса
+        //        }
+        //    }
+
+        //    return result;
+        //}
+
         public void DelShips()
         {
             for (int i = 0; i < 10; i++)
