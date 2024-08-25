@@ -67,36 +67,55 @@ namespace BattleShip
         }
 
         // Выстрел игрока. Входящий параметр - координаты выстрела в виде строки из 2х цифр
-        public ShotStatus Shot(string ShotCoord)
+        public ShotStatus Shot(string shotCoord)
         {
             ShotStatus result = ShotStatus.Miss;
-            int x, y; //координаты выстрела в числовом виде
-            x = int.Parse(ShotCoord.Substring(0, 1));
-            y = int.Parse(ShotCoord.Substring(1));
+            int x, y;
+            
+            x = shotCoord[0] - 'A';  // Преобразование первой буквы в индекс (A=0, B=1 и т.д.)
+            y = int.Parse(shotCoord.Substring(1)) - 1;  // Преобразование цифры в индекс (1=0, 2=1 и т.д.)
+
             if (PlayerShips[x, y] == CoordStatus.None)
-            { result = ShotStatus.Miss; }
+            {
+                result = ShotStatus.Miss;
+            }
             else
             {
                 result = ShotStatus.Kill;
-                if ((x != 9 && PlayerShips[x + 1, y] == CoordStatus.Ship) ||
-                    (y != 9 && PlayerShips[x, y + 1] == CoordStatus.Ship) ||
-                    (x != 0 && PlayerShips[x - 1, y] == CoordStatus.Ship) ||
-                    (y != 0 && PlayerShips[x, y - 1] == CoordStatus.Ship) ||
-                    (x < 8 && PlayerShips[x + 2, y] == CoordStatus.Ship) ||
-                    (y < 8 && PlayerShips[x, y + 2] == CoordStatus.Ship) ||
-                    (x > 1 && PlayerShips[x - 2, y] == CoordStatus.Ship) ||
-                    (y > 1 && PlayerShips[x, y - 2] == CoordStatus.Ship) ||
-                    (x < 7 && PlayerShips[x + 3, y] == CoordStatus.Ship) ||
-                    (y < 7 && PlayerShips[x, y + 3] == CoordStatus.Ship) ||
-                    (x > 2 && PlayerShips[x - 3, y] == CoordStatus.Ship) ||
-                    (y > 2 && PlayerShips[x, y - 3] == CoordStatus.Ship))
-                    result = ShotStatus.Wounded;
+
+                // Проверяем соседние клетки для определения статуса ранения
+                for (int i = -1; i <= 1; i++)
+                {
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        if ((i == 0 && j == 0) || (i != 0 && j != 0)) // Пропускаем саму клетку и диагонали
+                            continue;
+
+                        int newX = x + i;
+                        int newY = y + j;
+
+                        if (newX >= 0 && newX < PlayerShips.GetLength(0) && newY >= 0 && newY < PlayerShips.GetLength(1))
+                        {
+                            if (PlayerShips[newX, newY] == CoordStatus.Ship)
+                            {
+                                result = ShotStatus.Wounded;
+                            }
+                        }
+                    }
+                }
+
                 PlayerShips[x, y] = CoordStatus.Got;
                 UndiscoverCells--;
-                if (UndiscoverCells == 0) { result = ShotStatus.EndBattle; }
+
+                if (UndiscoverCells == 0)
+                {
+                    result = ShotStatus.EndBattle;
+                }
             }
             return result;
         }
+
+        
 
         //Генерация выстрела
         public string ShotGen()
