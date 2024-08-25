@@ -20,71 +20,79 @@ namespace BattleShip
             {
                 dataGridView1.Rows.Add(row);
             }
+            dataGridView1.ClearSelection();
         }
         Model model;
 
         string[] row = { "", "", "", "", "", "", "", "", "", "" };
+        int x4 = 1;
+        int x3 = 2;
+        int x2 = 3;
+        int x1 = 4;
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    model.LastShot = model.Shot(textBox1.Text);
-        //    int x = int.Parse(textBox1.Text.Substring(0, 1));
-        //    int y = int.Parse(textBox1.Text.Substring(1));
-        //    switch (model.LastShot)
-        //    {
-        //        case ShotStatus.Miss:
-        //            model.EnemyShips[x, y] = CoordStatus.Shot; break;
-        //        case ShotStatus.Wounded:
-        //            model.EnemyShips[x, y] = CoordStatus.Got; break;
-        //        case ShotStatus.Kill:
-        //            model.EnemyShips[x, y] = CoordStatus.Got; break;
-        //    }
-        //    if (model.LastShot == ShotStatus.Wounded)
-        //    {
-        //        model.LastShotCoord = textBox1.Text;
-        //        model.WoundedStatus = true;
-        //    }
-        //        MessageBox.Show(model.LastShot.ToString());
-        //}
+
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            model.LastShot = model.Shot(textBox1.Text);
+            int x = int.Parse(textBox1.Text.Substring(0, 1));
+            int y = int.Parse(textBox1.Text.Substring(1));
+            switch (model.LastShot)
             {
-                // Проверка корректности ввода
-                if (textBox1.Text.Length != 2 ||
-                    !int.TryParse(textBox1.Text.Substring(0, 1), out int x) ||
-                    !int.TryParse(textBox1.Text.Substring(1), out int y) ||
-                    x < 0 || x >= 10 || y < 0 || y >= 10)
-                {
-                    MessageBox.Show("Invalid input. Please enter coordinates in the format 'xy', where x and y are between 0 and 9.");
-                    return;
-                }
-
-                model.LastShot = model.Shot(textBox1.Text);
-
-                switch (model.LastShot)
-                {
-                    case ShotStatus.Miss:
-                        model.EnemyShips[x, y] = CoordStatus.Shot;
-                        break;
-                    case ShotStatus.Wounded:
-                        model.EnemyShips[x, y] = CoordStatus.Got;
-                        model.LastShotCoord = textBox1.Text;
-                        model.WoundedStatus = true;
-                        break;
-                    case ShotStatus.Kill:
-                        model.EnemyShips[x, y] = CoordStatus.Got;
-                        break;
-                }
-
-                MessageBox.Show(model.LastShot.ToString());
+                case ShotStatus.Miss:
+                    model.EnemyShips[x, y] = CoordStatus.Shot; break;
+                case ShotStatus.Wounded:
+                    model.EnemyShips[x, y] = CoordStatus.Got; break;
+                case ShotStatus.Kill:
+                    model.EnemyShips[x, y] = CoordStatus.Got; break;
             }
-            catch (Exception ex)
+            //Model.LastShotCoord = textBox1.Text;
+            if (model.LastShot == ShotStatus.Wounded)
             {
-                // Логирование или вывод сообщения об ошибке
-                MessageBox.Show("Error in button1_Click: " + ex.Message);
+                model.LastShotCoord = textBox1.Text;
+                model.WoundedStatus = true;
+
             }
+            MessageBox.Show(model.LastShot.ToString());
         }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Проверка корректности ввода
+        //        if (textBox1.Text.Length != 2 ||
+        //            !int.TryParse(textBox1.Text.Substring(0, 1), out int x) ||
+        //            !int.TryParse(textBox1.Text.Substring(1), out int y) ||
+        //            x < 0 || x >= 10 || y < 0 || y >= 10)
+        //        {
+        //            MessageBox.Show("Invalid input. Please enter coordinates in the format 'xy', where x and y are between 0 and 9.");
+        //            return;
+        //        }
+
+        //        model.LastShot = model.Shot(textBox1.Text);
+
+        //        switch (model.LastShot)
+        //        {
+        //            case ShotStatus.Miss:
+        //                model.EnemyShips[x, y] = CoordStatus.Shot;
+        //                break;
+        //            case ShotStatus.Wounded:
+        //                model.EnemyShips[x, y] = CoordStatus.Got;
+        //                model.LastShotCoord = textBox1.Text;
+        //                model.WoundedStatus = true;
+        //                break;
+        //            case ShotStatus.Kill:
+        //                model.EnemyShips[x, y] = CoordStatus.Got;
+        //                break;
+        //        }
+
+        //        MessageBox.Show(model.LastShot.ToString());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Логирование или вывод сообщения об ошибке
+        //        MessageBox.Show("Error in button1_Click: " + ex.Message);
+        //    }
+        //}
 
 
         private void button2_Click(object sender, EventArgs e)
@@ -102,26 +110,7 @@ namespace BattleShip
         }
 
         private void button204_Click(object sender, EventArgs e) // Перерисовать
-        {
-            //var b = this.Controls.Find("b", true);
-            //for (int x = 0; x < 10; x++)
-            //{
-            //    for (int y = 0; y < 10; y++)
-            //    {
-
-            //        string name = "b" + x.ToString() + y.ToString();
-            //        var b = this.Controls.Find(name, true);
-            //        if (b.Count() > 0)
-            //        {
-            //            var btn = b[0];
-            //            switch (model.PlayerShips[x, y])
-            //            {
-            //                case CoordStatus.Ship: btn.Text = "x"; break;
-            //                case CoordStatus.None: btn.Text = ""; break;
-            //            }
-            //        }
-            //    }
-            //}
+        {            
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
@@ -139,39 +128,91 @@ namespace BattleShip
 
         private void button203_Click(object sender, EventArgs e)  // Поставить
         {
-            if (dataGridView1.SelectedCells.Count > 1)
+            int cnt = dataGridView1.SelectedCells.Count;
+            if (cnt > 0)
             {
+                if (checkBox2.Checked)
+                {
+                    int a, b;
+                    a = dataGridView1.SelectedCells[0].RowIndex;
+                    b = dataGridView1.SelectedCells[0].ColumnIndex;
+                    if (dataGridView1.Rows[a].Cells[b].Value.ToString() == "") return;
+                }
+                if (cnt == 1)
+                    if (!checkBox2.Checked)
+                    {
+                        if (x1 == 0) return;
+                        x1--;
+                    }
+                    else x1++;
+                if (cnt == 2)
+                    if (!checkBox2.Checked)
+                    {
+                        if (x2 == 0) return;
+                        x2--;
+                    }
+                    else x2++;
+                if (cnt == 3)
+                    if (!checkBox2.Checked)
+                    {
+                        if (x3 == 0) return;
+                        x3--;
+                    }
+                    else x3++;
+                if (cnt == 4)
+                    if (!checkBox2.Checked)
+                    {
+                        if (x4 == 0) return;
+                        x4--;
+                    }
+                    else x4++;
+
                 for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
                 {
                     int x = dataGridView1.SelectedCells[i].ColumnIndex;
                     int y = dataGridView1.SelectedCells[i].RowIndex;
                     CoordStatus coordStatus;
-                    if (!checkBox2.Checked) coordStatus = CoordStatus.Ship;                    
+                    if (!checkBox2.Checked) coordStatus = CoordStatus.Ship;
                     else coordStatus = CoordStatus.None;
                     model.PlayerShips[x, y] = coordStatus;
                 }
-                    dataGridView1.ClearSelection();
-            }
-            else
-            {
+                dataGridView1.ClearSelection();
 
+
+                //if (dataGridView1.SelectedCells.Count > 1)
+                //{
+                //    for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+                //    {
+                //        int x = dataGridView1.SelectedCells[i].ColumnIndex;
+                //        int y = dataGridView1.SelectedCells[i].RowIndex;
+                //        CoordStatus coordStatus;
+                //        if (!checkBox2.Checked) coordStatus = CoordStatus.Ship;                    
+                //        else coordStatus = CoordStatus.None;
+                //        model.PlayerShips[x, y] = coordStatus;
+                //    }
+                //        dataGridView1.ClearSelection();
+                //}
+                //else
+                //{
+
+                //}
+                //Direction direction;
+                //ShipType shipType = ShipType.x1;
+                //if (checkBox1.Checked) direction = Direction.Vertical; else direction = Direction.Horizontal;
+                //if (checkBox2.Checked)
+                //{
+                //    model.AddDellShip(textBox1.Text, shipType, direction, true);
+                //    button204_Click(sender, e);
+                //    return;
+                //}
+                //if (radioButton1.Checked) shipType = ShipType.x1;
+                //if (radioButton2.Checked) shipType = ShipType.x2;
+                //if (radioButton3.Checked) shipType = ShipType.x3;
+                //if (radioButton4.Checked) shipType = ShipType.x4;
+
+                //model.AddDellShip(textBox1.Text, shipType, direction, checkBox2.Checked);
             }
-            Direction direction;
-            ShipType shipType = ShipType.x1;
-            if (checkBox1.Checked) direction = Direction.Vertical; else direction = Direction.Horizontal;
-            if (checkBox2.Checked)
-            {
-                model.AddDellShip(textBox1.Text, shipType, direction, true);
                 button204_Click(sender, e);
-                return;
-            }
-            if (radioButton1.Checked) shipType = ShipType.x1;
-            if (radioButton2.Checked) shipType = ShipType.x2;
-            if (radioButton3.Checked) shipType = ShipType.x3;
-            if (radioButton4.Checked) shipType = ShipType.x4;
-
-            model.AddDellShip(textBox1.Text, shipType, direction, checkBox2.Checked);
-            button204_Click(sender, e);
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -195,7 +236,7 @@ namespace BattleShip
             {
                 MessageBox.Show("Превышено количество клеток!");
                 int x = dataGridView1.SelectedCells[cnt - 1].ColumnIndex;
-                int y = dataGridView1.SelectedCells[cnt - 1].RowIndex;
+                int y = dataGridView1.SelectedCells[0].RowIndex;
                 dataGridView1.Rows[y].Cells[x].Selected = false;
                 dataGridView1.ClearSelection();
             }

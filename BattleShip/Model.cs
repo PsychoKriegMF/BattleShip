@@ -22,10 +22,10 @@ namespace BattleShip
     }
     public enum ShipType  // Типы кораблей
     {
-        x4,    // количество палуб
-        x3,
-        x2,
-        x1
+        x4 = 1,    // количество палуб
+        x3 = 2,
+        x2 = 3,
+        x1 = 4
     }
     public enum Direction  // направление
     {
@@ -70,7 +70,7 @@ namespace BattleShip
         public ShotStatus Shot(string ShotCoord)
         {
             ShotStatus result = ShotStatus.Miss;
-            int x, y; // координаты выстрела в числовом виде
+            int x, y; //координаты выстрела в числовом виде
             x = int.Parse(ShotCoord.Substring(0, 1));
             y = int.Parse(ShotCoord.Substring(1));
             if (PlayerShips[x, y] == CoordStatus.None)
@@ -101,7 +101,7 @@ namespace BattleShip
         //Генерация выстрела
         public string ShotGen()
         {
-            int x, y; // координаты выстрела в цифровом виде
+            int x, y;//координаты выстрела в цифровом виде
             Random rand = new Random();
             if (LastShot == ShotStatus.Kill) WoundedStatus = false;
             if ((LastShot == ShotStatus.Kill || LastShot == ShotStatus.Miss) && !WoundedStatus)
@@ -135,24 +135,35 @@ namespace BattleShip
                             case 4: y--; break;
                         }
                     }
-
                 }
                 if (LastShot == ShotStatus.Miss && WoundedStatus)
                 {
-                    if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x = x + 2;
-                    if (x < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y = y + 2;
-                    if (x < 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x = x - 2;
-                    if (x < 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y = y - 2;
                     if (x < 8 && EnemyShips[x + 2, y] == CoordStatus.Got) x = x + 3;
-                    if (x < 8 && EnemyShips[x, y + 2] == CoordStatus.Got) y = y + 3;
-                    if (x < 1 && EnemyShips[x - 2, y] == CoordStatus.Got) x = x - 3;
-                    if (x < 1 && EnemyShips[x, y - 2] == CoordStatus.Got) y = y - 3;
+                    else
+                    if (y < 8 && EnemyShips[x, y + 2] == CoordStatus.Got) y = y + 3;
+                    else
+                    if (x > 1 && EnemyShips[x - 2, y] == CoordStatus.Got) x = x - 3;
+                    else
+                    if (y > 1 && EnemyShips[x, y - 2] == CoordStatus.Got) y = y - 3;
+                    else
                     if (x < 7 && EnemyShips[x + 3, y] == CoordStatus.Got) x = x + 4;
-                    if (x < 7 && EnemyShips[x, y + 3] == CoordStatus.Got) y = y + 4;
-                    if (x < 2 && EnemyShips[x - 3, y] == CoordStatus.Got) x = x - 4;
-                    if (x < 2 && EnemyShips[x, y - 3] == CoordStatus.Got) y = y - 4;
+                    else
+                    if (y < 7 && EnemyShips[x, y + 3] == CoordStatus.Got) y = y + 4;
+                    else
+                    if (x > 2 && EnemyShips[x - 3, y] == CoordStatus.Got) x = x - 4;
+                    else
+                    if (y > 2 && EnemyShips[x, y - 3] == CoordStatus.Got) y = y - 4;
+                    else
+                    if (x < 9 && EnemyShips[x + 1, y] == CoordStatus.Got) x = x + 2;
+                    else
+                    if (y < 9 && EnemyShips[x, y + 1] == CoordStatus.Got) y = y + 2;
+                    else
+                    if (x > 0 && EnemyShips[x - 1, y] == CoordStatus.Got) x = x - 2;
+                    else
+                    if (y > 0 && EnemyShips[x, y - 1] == CoordStatus.Got) y = y - 2;
                 }
             }
+
             string result = x.ToString() + y.ToString();
             return result;
         }
@@ -233,14 +244,10 @@ namespace BattleShip
             if (deleting || CheckCoord(xy, type, direction))
             {
                 int x = int.Parse(xy.Substring(0, 1));
-                int y = int.Parse(xy.Substring(1, 1));
+                int y = int.Parse(xy.Substring(1));
                 CoordStatus status = new CoordStatus();
-                if (deleting)
-                {
-                    status = CoordStatus.None;
-                }             
-                else status = CoordStatus.Ship;                
-                PlayerShips[x, y] = CoordStatus.Ship;
+                if (deleting) status = CoordStatus.None; else status = CoordStatus.Ship;
+                PlayerShips[x, y] = status;
                 if (direction == Direction.Vertical)
                 {
                     switch (type)
